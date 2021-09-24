@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# This script is a wrapper for FLAC encoder installed on my system. Graphical tools exist but the command line FLAC seems to do a better job
+# It will take a FLAC file or many FLAC files, encode them with the command mayked as PAYLOAD and assuming no errors will take the smaller of the two and delete the larger file.
+# FLAC is a lossless encoder so maximum compression does not degrade audio quality with the only downside to the saved space being more CPU power to make the files.
 printUsage () {
     echo usage:
     echo "  $0 threads item [items...]"
@@ -84,15 +86,16 @@ else
         eval FILE=\${$i}
         TempFile="$FILE.tmp"
         if [ -f "$FILE" ]; then
+            # ------------      PAYLOAD command is here         -------------
             # execute flac encoder and store the error, if null then assume successful encode otherwise fail and erase temp file
             # faster encoding without the exhaustive search of all encoding models
             # OUT=$( flac -s --verify --best --output-name="$TempFile" "$FILE" 2>&1 )
             # slower but slightly more space efficient way to encode exhastive searching for best model
-             OUT=$( flac -s -e --verify --best --output-name="$TempFile" "$FILE" 2>&1 )
+             OUT=$( flac -s -e --verify --best --output-name="$TempFile" "$FILE" 2>&1 ) #Alternately this should be replacable with many commands... just a thought.
             if [ -z "$OUT" ]; then
                 successReplaceTemp
             else
-                #try to see if the error ends in "dropping existing cuesheet..." and make it success
+                #try to see if the error ends in "dropping existing cuesheet..." and make it success, That is not an error that I care about
                 pos=${#OUT}
                 pos=$(($pos-29))
                 echo "${OUT:pos}"
