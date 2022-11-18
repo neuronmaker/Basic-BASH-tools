@@ -1,7 +1,7 @@
 This is a collection of basic tools that I made to speed up some repetitive tasks I do often.
 
-These files are intended to "just work" independantly of most configurations. You may need to install external software with some of these tools, 
-but many come pre installed with most Linux based operating systems. Often they are ways to wrap an existing program and do something with it without the 
+These files are intended to "just work" independantly of most configurations. You may need to install external software to make some of these tools work, 
+but many dependencies come pre-installed with most Linux based operating systems. Often they are ways to wrap an existing program and do something with it without the 
 user (me usually) needing to be physically present the whole time. 
 
 Unless otherwise stated all of these files are developed to work on my local systems where I do most of my work which are usually running Linux Mint as the 
