@@ -1,7 +1,11 @@
 #!/bin/bash
-# This script is a wrapper for FLAC encoder installed on my system. Graphical tools exist but the command line FLAC seems to do a better job
-# It will take a FLAC file or many FLAC files, encode them with the command mayked as PAYLOAD and assuming no errors will take the smaller of the two and delete the larger file.
-# FLAC is a lossless encoder so maximum compression does not degrade audio quality with the only downside to the saved space being more CPU power to make the files.
+# This script is a wrapper for FLAC encoder installed on my system. Graphical tools exist but the command line FLAC
+# seems to do a better job with regards to efficiency (at least on my system).
+# It will take a FLAC file or many FLAC files, encode them with the in the "PAYLOAD" section.
+# Assuming there are no errors, it will keep the smaller of the two and delete the larger file.
+# FLAC is a lossless encoder so maximum compression does not degrade audio quality.
+# The only downside to the saved space being more CPU time to compress the audio, for me this is acceptable since
+# it is a one-time cost, and this script will encode a series of files automatically while I go for lunch or coffee.
 printUsage () {
     echo usage:
     echo "  $0 threads item [items...]"
@@ -76,7 +80,7 @@ if [ "$1" -eq "$1" ] 2>/dev/null; then
         i=$(($i+1))
     done
     eval $arg
-    #fixes screen sync issue on exit
+    #fixes terminal sync issue on exit
     sleep "1.5s"
     eval ""
 else
@@ -90,8 +94,9 @@ else
             # execute flac encoder and store the error, if null then assume successful encode otherwise fail and erase temp file
             # faster encoding without the exhaustive search of all encoding models
             # OUT=$( flac -s --verify --best --output-name="$TempFile" "$FILE" 2>&1 )
-            # slower but slightly more space efficient way to encode exhastive searching for best model
-             OUT=$( flac -s -e --verify --best --output-name="$TempFile" "$FILE" 2>&1 ) #Alternately this should be replacable with many commands... just a thought.
+            # slower but slightly more space efficient way to encode exhaustive searching for best model
+            # Since encoding is a one-time cost, I find this an acceptable tradeoff
+             OUT=$( flac -s -e --verify --best --output-name="$TempFile" "$FILE" 2>&1 ) #Alternately this should be replaceable with many commands... just a thought.
             if [ -z "$OUT" ]; then
                 successReplaceTemp
             else
@@ -103,7 +108,7 @@ else
                     successReplaceTemp
                     echo "         WARNING, lead-out offset of cuesheet in input FLAC file does not match input length, dropping existing cuesheet..."
                 else
-                    #assume error and remove the temp file leaving original as failsafe
+                    #assume there was an error and remove the temporary file, leaving original as the fail-safe
                     failRemoveTemp
                 fi
             fi
