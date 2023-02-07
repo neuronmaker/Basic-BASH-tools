@@ -22,4 +22,9 @@ What you need to use these
 --------------------------
 
 - Flac wrapper scripts
-  - flac.sh - Requires a working flac encoder
+  - `flac.sh` - Requires a working flac encoder that is accessible by the `flac` command
+  - `flac-pipe.sh` - Requires a working `flac.sh` script, change the `flacScript` variable to reflect where the script is located
+  - `find-flac.sh` - Requires a working `flac-pipe.sh` script
+- `photoname.sh` - Requires a working version of `exiftool`
+- `enable-git-signing.sh` - Only requires a working installation of the `git` version control tool
+- `rotate-background.sh` - Only designed to work on Cinnamon, it also needs two background image files to be set into its variables

@@ -23,10 +23,10 @@ FILE=$1
 if [ "$1" = "-h" ]; then
     printUsage
 else
-  #if no files passed, select everything in this directory, this is for lazy usage and can try to rename files in all subdirectories. Be careful with that.
+  # if no files passed, select everything in this directory, this is for lazy usage and can try to rename files in all subdirectories. Be careful with that.
   if [ -z "$1" ]; then
       FILE="*"
-      #check if we are in the user's home folder, and if we are then don't run
+      # check if we are in the user's home folder, and if we are then don't run
       if [ $(pwd) = ~ ]; then
         echo "Aborting, I won't work directly on user's home folders."
         FILE=""
@@ -35,9 +35,9 @@ else
 fi
 
 if [ -z "$FILE" ]; then
-  #do nothing
-    echo "Aborted"
+  # do nothing
+    echo "Aborted, check specified arguments and ensure you're not in the root of your home directory"
   else
-    #Run if there are now files in the FILE variable
+    # Run if there are now files in the FILE variable
     exiftool -d '%Y-%m-%d_%H%M%S%-02.c.%%e' '-filename<CreateDate' $FILE
 fi

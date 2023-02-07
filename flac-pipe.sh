@@ -1,7 +1,9 @@
 #! /bin/bash
-#This needs flac.sh to be accessible, change the below string to whatever script you want to load.
-#This is merely a loader script that was made to make flac.sh work with text files or say the output of the find tool
-flacList="flac.sh $1"
+#This needs flac.sh to be accessible, change the string below (flaclist) to whatever script you want to load.
+#This is merely a loader script that was made to make flac.sh work with text files or the output of the find tool
+flacScript="flac.sh"
+# make the next command a variable for easy changing later on other systems
+flacList="$flacScript $1"
 while read flacPath; do
     #escape the "'" character so it's "\'" in the string. This makes ugly file names work with FLAC
     len=${#flacPath}
@@ -14,8 +16,8 @@ while read flacPath; do
         fi
         pos=$(($pos+1))
     done
-    
+    #append each argument
     flacList="$flacList '$flacPath'"
 done
-    
-eval $flacList # launch the script payload with the arguments loaded
+# launch the script payload with the arguments loaded
+eval $flacList
