@@ -27,7 +27,7 @@ else
   if [ -z "$1" ]; then
       FILE="*"
       # check if we are in the user's home folder, and if we are then don't run
-      if [ $(pwd) = ~ ]; then
+      if [ "$(pwd)" = ~ ]; then
         echo "Aborting, I won't work directly on user's home folders."
         FILE=""
       fi
