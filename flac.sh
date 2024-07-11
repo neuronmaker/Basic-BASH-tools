@@ -4,7 +4,7 @@
 # It will take a FLAC file or many FLAC files, encode them with the in the "PAYLOAD" section.
 # Assuming there are no errors, it will keep the smaller of the two and delete the larger file.
 # FLAC is a lossless encoder so maximum compression does not degrade audio quality.
-# The only downside to the saved space being more CPU time to compress the audio, for me this is acceptable since
+# The only tradeoff is more CPU time is needed to compress the audio, for me this is acceptable since
 # it is a one-time cost, and this script will encode a series of files automatically while I go for lunch or coffee.
 printUsage () {
 	echo usage:
@@ -80,6 +80,7 @@ if [ "$1" -eq "$1" ] 2>/dev/null; then
 		j=$(($j-1))
 		i=$(($i+1))
 	done
+	#execute each instance of this script
 	eval $arg
 	#fixes terminal sync issue on exit
 	sleep "1.5s"
